@@ -1,0 +1,13 @@
+build/
+cmake-build-*/
+*.so
+*.o
+*.a
+*.d
+.cache/
+.vscode/
+.idea/
+Testing/
+CTestTestfile.cmake
+compile_commands.json
+.DS_Store

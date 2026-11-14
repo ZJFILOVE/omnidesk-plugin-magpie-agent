@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "id": "plugin-magpie-agent",
+  "name": "Magpie AI Agent Router",
+  "version": "0.1.0",
+  "kind": "provider",
+  "domain": "core",
+  "description": "Magpie CLI/HTTP adapter providing intelligent multi-provider model routing (llm.router.v1), domain AI assistant (ai.agent.v1), streaming/structured chat completions (llm.chat.v1), and context/glossary translation (llm.translate.v1).",
+  "author": "OmniDesk Contributors",
+  "license": "MIT",
+  "homepage": "https://github.com/ZJFILOVE/omnidesk-plugin-magpie-agent",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZJFILOVE/omnidesk-plugin-magpie-agent.git",
+    "branch": "main"
+  },
+  "abi_version": 1,
+  "provides": [
+    "ai.agent.v1",
+    "llm.router.v1",
+    "llm.chat.v1",
+    "llm.translate.v1"
+  ],
+  "consumes": [],
+  "permissions": [
+    "config:read",
+    "config:write",
+    "secret:vault",
+    "network:loopback",
+    "process:magpie"
+  ],
+  "build": {
+    "system": "cmake",
+    "entry_target": "plugin_magpie_agent",
+    "output_lib": "libplugin_magpie_agent.so",
+    "cmake_args": [],
+    "verify_cmd": "ctest --output-on-failure"
+  },
+  "config_schema": [
+    {
+      "key": "magpie_bin",
+      "label": "Magpie CLI Path",
+      "type": "string",
+      "default": "magpie",
+      "required": true,
+      "description": "Executable name or absolute path to the magpie CLI binary."
+    },
+    {
+      "key": "gateway_url",
+      "label": "Gateway URL Override",
+      "type": "string",
+      "default": "",
+      "required": false,
+      "description": "Optional Magpie HTTP gateway base URL (e.g. http://127.0.0.1:3425). Leave empty for automatic discovery via ~/.config/magpie/gateway.json."
+    },
+    {
+      "key": "route_group_id",
+      "label": "Dedicated Route Group ID",
+      "type": "string",
+      "default": "omnidesk-active",
+      "required": true,
+      "description": "Magpie routing group exclusively managed by OmniDesk without modifying terminal agent configs."
+    },
+    {
+      "key": "routing_strategy",
+      "label": "Default Routing Strategy",
+      "type": "select",
+      "default": "order",
+      "required": true,
+      "options": [
+        "order",
+        "smart",
+        "usage",
+        "pace",
+        "drain",
+        "rotate",
+        "manual"
+      ],
+      "description": "Default Magpie group routing strategy applied when updating the OmniDesk route group."
+    },
+    {
+      "key": "stays_policy",
+      "label": "Session Sticky Policy",
+      "type": "select",
+      "default": "session",
+      "required": true,
+      "options": [
+        "session",
+        "turn",
+        "auto",
+        "off",
+        "strict"
+      ],
+      "description": "Account/key stickiness policy for the OmniDesk route group."
+    },
+    {
+      "key": "request_timeout_ms",
+      "label": "Inference Timeout (ms)",
+      "type": "int",
+      "default": 60000,
+      "required": false,
+      "description": "HTTP timeout in milliseconds for Magpie /v1/chat/completions calls."
+    },
+    {
+      "key": "gateway_key",
+      "label": "Gateway API Key",
+      "type": "secret",
+      "default": "",
+      "required": false,
+      "description": "Optional Bearer token for Magpie HTTP gateway (stored in SecretVault)."
+    }
+  ]
+}
