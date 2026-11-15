@@ -122,7 +122,7 @@ std::size_t findIndexOrZero(const Vec& vec, const std::string& val) {
 
 brls::View* createMagpieDockWidget(const std::shared_ptr<MagpieClient>& client) {
     auto* root = new SafeUiBox(brls::Axis::COLUMN);
-    root->setPadding(12, 12, 12, 12);
+    root->setPadding(14, 14, 14, 14);
     root->setCornerRadius(10);
     root->setBackgroundColor(omnidesk::ui::color("desktop/soft"));
     root->setBorderColor(omnidesk::ui::color("desktop/line"));
@@ -133,17 +133,17 @@ brls::View* createMagpieDockWidget(const std::shared_ptr<MagpieClient>& client) 
     header->setAlignItems(brls::AlignItems::CENTER);
     header->setMarginBottom(6);
 
-    auto* title_lbl = omnidesk::ui::makeLabel("Magpie AI 路由与额度", 14.0f, "brls/text");
-    auto* gw_pill = omnidesk::ui::makeLabel("Gateway", 11.5f, "font/grey");
+    auto* title_lbl = omnidesk::ui::makeLabel("Magpie AI 路由与额度", 15.0f, "brls/text");
+    auto* gw_pill = omnidesk::ui::makeLabel("Gateway", 12.5f, "font/grey");
     header->addView(title_lbl);
     header->addView(gw_pill);
     root->addView(header);
 
-    auto* route_lbl = omnidesk::ui::makeLabel("", 12.5f, "brls/text");
+    auto* route_lbl = omnidesk::ui::makeLabel("", 13.5f, "brls/text");
     route_lbl->setMarginBottom(4);
     root->addView(route_lbl);
 
-    auto* harness_lbl = omnidesk::ui::makeLabel("", 11.5f, "font/grey");
+    auto* harness_lbl = omnidesk::ui::makeLabel("", 12.5f, "font/grey");
     harness_lbl->setMarginBottom(6);
     root->addView(harness_lbl);
 
@@ -168,7 +168,7 @@ brls::View* createMagpieDockWidget(const std::shared_ptr<MagpieClient>& client) 
 
         clearContainerChildren(quota_box);
         if (snap.quotas.empty()) {
-            auto* empty_q = omnidesk::ui::makeLabel("额度快照: 点击“刷新状态”获取实时额度", 11.5f, "font/grey");
+            auto* empty_q = omnidesk::ui::makeLabel("额度快照: 点击“刷新状态”获取实时额度", 12.5f, "font/grey");
             quota_box->addView(empty_q);
         } else {
             std::size_t shown = 0;
@@ -176,7 +176,7 @@ brls::View* createMagpieDockWidget(const std::shared_ptr<MagpieClient>& client) 
                 if (q.windows.empty() && !q.has_balance && !q.error.empty()) {
                     continue; // Skip expired accounts when healthy ones are shown first
                 }
-                auto* row = omnidesk::ui::makeLabel(formatQuotaSummaryLine(q), 11.5f, "font/grey");
+                auto* row = omnidesk::ui::makeLabel(formatQuotaSummaryLine(q), 12.5f, "font/grey");
                 row->setMarginBottom(2);
                 quota_box->addView(row);
                 if (++shown >= 3) {
@@ -185,7 +185,7 @@ brls::View* createMagpieDockWidget(const std::shared_ptr<MagpieClient>& client) 
             }
             if (shown == 0) {
                 auto* row = omnidesk::ui::makeLabel(formatQuotaSummaryLine(snap.quotas.front()),
-                                                    11.5f, "status/warn_fg");
+                                                    12.5f, "status/warn_fg");
                 quota_box->addView(row);
             }
         }
@@ -267,9 +267,9 @@ brls::View* createMagpieSettingsView(const std::shared_ptr<MagpieClient>& client
     // 1. Gateway status card
     auto* gw_card = omnidesk::ui::makeCard("desktop/surface");
     gw_card->setMarginBottom(10);
-    auto* gw_title = omnidesk::ui::makeLabel("Magpie Gateway 与当前状态", 15.0f, "brls/text");
+    auto* gw_title = omnidesk::ui::makeLabel("Magpie Gateway 与当前状态", 16.0f, "brls/text");
     gw_title->setMarginBottom(4);
-    auto* gw_info = omnidesk::ui::makeLabel("", 12.5f, "font/grey");
+    auto* gw_info = omnidesk::ui::makeLabel("", 13.5f, "font/grey");
     gw_info->setMarginBottom(8);
     gw_card->addView(gw_title);
     gw_card->addView(gw_info);
@@ -277,16 +277,16 @@ brls::View* createMagpieSettingsView(const std::shared_ptr<MagpieClient>& client
     // 2. Route configurator card
     auto* route_card = omnidesk::ui::makeCard("desktop/surface");
     route_card->setMarginBottom(10);
-    auto* route_title = omnidesk::ui::makeLabel("OmniDesk 专用路由组配置 (无终端污染)", 15.0f, "brls/text");
+    auto* route_title = omnidesk::ui::makeLabel("OmniDesk 专用路由组配置 (无终端污染)", 16.0f, "brls/text");
     route_title->setMarginBottom(4);
-    auto* route_status = omnidesk::ui::makeLabel("", 12.5f, "font/grey");
+    auto* route_status = omnidesk::ui::makeLabel("", 13.5f, "font/grey");
     route_status->setMarginBottom(8);
     route_card->addView(route_title);
     route_card->addView(route_status);
 
-    auto* primary_lbl = omnidesk::ui::makeLabel("", 13.0f, "brls/text");
-    auto* fallback_lbl = omnidesk::ui::makeLabel("", 12.5f, "font/grey");
-    auto* policy_lbl = omnidesk::ui::makeLabel("", 12.5f, "font/grey");
+    auto* primary_lbl = omnidesk::ui::makeLabel("", 14.0f, "brls/text");
+    auto* fallback_lbl = omnidesk::ui::makeLabel("", 13.5f, "font/grey");
+    auto* policy_lbl = omnidesk::ui::makeLabel("", 13.5f, "font/grey");
     primary_lbl->setMarginBottom(4);
     fallback_lbl->setMarginBottom(4);
     policy_lbl->setMarginBottom(8);
@@ -298,12 +298,12 @@ brls::View* createMagpieSettingsView(const std::shared_ptr<MagpieClient>& client
     controls_row1->setMarginBottom(6);
     auto* controls_row2 = new brls::Box(brls::Axis::ROW);
     controls_row2->setMarginBottom(8);
-    auto* feedback_lbl = omnidesk::ui::makeLabel("", 12.0f, "font/grey");
+    auto* feedback_lbl = omnidesk::ui::makeLabel("", 13.0f, "font/grey");
 
     // 3. Quotas & Harnesses card
     auto* quota_card = omnidesk::ui::makeCard("desktop/surface");
     quota_card->setMarginBottom(10);
-    auto* quota_title = omnidesk::ui::makeLabel("实时订阅额度与终端 Agent 检测 (只读)", 15.0f, "brls/text");
+    auto* quota_title = omnidesk::ui::makeLabel("实时订阅额度与终端 Agent 检测 (只读)", 16.0f, "brls/text");
     quota_title->setMarginBottom(6);
     quota_card->addView(quota_title);
     auto* quota_list = new brls::Box(brls::Axis::COLUMN);
@@ -371,17 +371,17 @@ brls::View* createMagpieSettingsView(const std::shared_ptr<MagpieClient>& client
 
         clearContainerChildren(quota_list);
         if (!snap.harnesses.empty()) {
-            auto* h_lbl = omnidesk::ui::makeLabel(formatHarnessesLine(snap.harnesses), 12.0f, "brls/text");
+            auto* h_lbl = omnidesk::ui::makeLabel(formatHarnessesLine(snap.harnesses), 13.0f, "brls/text");
             h_lbl->setMarginBottom(6);
             quota_list->addView(h_lbl);
         }
         if (snap.quotas.empty()) {
-            quota_list->addView(omnidesk::ui::makeLabel("暂无额度数据，请点击“刷新全部数据”。", 12.0f, "font/grey"));
+            quota_list->addView(omnidesk::ui::makeLabel("暂无额度数据，请点击“刷新全部数据”。", 13.0f, "font/grey"));
         } else {
             std::size_t max_rows = std::min<std::size_t>(snap.quotas.size(), 8);
             for (std::size_t i = 0; i < max_rows; ++i) {
                 quota_list->addView(
-                    omnidesk::ui::makeLabel(formatQuotaSummaryLine(snap.quotas[i]), 12.0f, "font/grey"));
+                    omnidesk::ui::makeLabel(formatQuotaSummaryLine(snap.quotas[i]), 13.0f, "font/grey"));
             }
         }
     };
